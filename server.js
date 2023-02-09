@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const releasenote = require("./routes/releasenote");
 const connectDB = require("./db/connect");
+const { getAllReleaseNote, createReleaseNote, getReleaseNote, updateReleaseNote, deleteReleaseNote } = require("./controllers/releasenote");
 require("dotenv").config();
 
 const port = 3000;
@@ -17,9 +18,11 @@ app.get("/hello", (req, res) => {
   res.send("hello everyone, how are you...");
 });
 
-app.use("/api/v1/releasenote", releasenote);
-//app.get(/api/v1/releasenote) - get all the release node
-//app.post(/api/v1/releasenote) - create new release note
+app.use("/api/v1/releasenote", getAllReleaseNote);
+app.use("/api/v1/getreleasenote", getReleaseNote) //get all the release node
+app.use("/api/v1/createreleasenote", createReleaseNote) // create new release note
+app.use("/api/v1/updatereleasenote", updateReleaseNote) 
+app.use("/api/v1/deletereleasenote", deleteReleaseNote) 
 
 const start = async () => {
   try {
